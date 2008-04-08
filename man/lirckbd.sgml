@@ -1,0 +1,65 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V4.1//EN">
+<refentry>
+<refmeta>
+	<refentrytitle>
+		<application>lirckbd</application>
+	</refentrytitle>
+	<manvolnum>1</manvolnum>
+</refmeta>
+<refnamediv>
+	<refname>
+		<application>lirckbd</application>
+	</refname>
+	<refpurpose>
+	LIRC Keyboard Daemon
+	</refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+	<cmdsynopsis>
+	<command>lirckbd</command>
+<arg><option>-c </option><replaceable class="parameter">configfile</replaceable></arg>
+<arg><option>-d </option></arg>
+	</cmdsynopsis>
+</refsynopsisdiv>
+<refsect1>
+	<title>DESCRIPTION</title>
+	<para>
+	<command>lirckbd</command> is a LIRC Keyboard 
+    Daemon.  It uses the uinput kernel functions to
+    create a user-level keyboard device and translates
+    LIRC commands into keystroke sequences.
+	</para>
+</refsect1>
+<refsect1>
+	<title>OPTIONS</title>
+	<variablelist>
+	<varlistentry>
+		<term>-c <replaceable class="parameter">configfile</replaceable></term>
+		<listitem>
+			<para>
+			Sets configuration file to <filename>configfile</filename>
+			</para>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term>-d</term>
+		<listitem>
+			<para>
+			Enable debug output
+			</para>
+		</listitem>
+	</varlistentry>
+	</variablelist>
+</refsect1>
+<refsect1>
+	<title>AUTHOR</title>
+	<para>
+	<author>
+		<firstname>Seth </firstname>
+		<surname>Jennings </surname>
+		<contrib>(Original author)</contrib>
+	</author>
+	</para>
+</refsect1>
+</refentry>
+

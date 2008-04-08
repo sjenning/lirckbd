@@ -14,7 +14,7 @@
 #include <sys/time.h>
 #include <signal.h>
 
-#include "lirckb.h"
+#include "lirckbd.h"
 #include "logging.h"
 #include "parse.h"
 
