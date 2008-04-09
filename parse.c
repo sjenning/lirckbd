@@ -2,11 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "lirckb.h"
+#include "lirckbd.h"
 #include "parse.h"
 #include "logging.h"
 
-keymap_t lirckb_keymap[LIRCKB_KEYMAP_SIZE] =
+/* internal prototype */
+int
+get_keycode(const char *keyname);
+
+keymap_t lirckbd_keymap[LIRCKB_KEYMAP_SIZE] =
 {	{"ESC", KEY_ESC },
 	{ "1",	KEY_1 },
 	{ "2",	KEY_2 },
@@ -89,50 +93,49 @@ keymap_t lirckb_keymap[LIRCKB_KEYMAP_SIZE] =
 	{ "DELETE",	KEY_DELETE }
 };
 
-lirckb_cmd_t* 
-read_lirckb_config(const char *filename)
+lirckbd_cmd_t* 
+read_lirckbd_config(const char *filename)
 {
 	FILE *cfgfile = NULL;
 	char linebuf[LINEBUF_SIZE];
 	char *ptr = NULL;
 	unsigned int i, linenum = 0;
-	lirckb_cmd_t *cmdnode = NULL, *tmpnode = NULL;
+	lirckbd_cmd_t *cmdnode = NULL, *tmpnode = NULL;
 
 	logdbg("opening config file");
 	if((cfgfile = fopen(filename,"r")) == NULL)
 	{
-		logerr("failed to open lirckb configuration file");
+		logerr("failed to open lirckbd configuration file");
 		return NULL;
 	}
 
 	logdbg("scanning config file");
 	while(fgets(linebuf,LINEBUF_SIZE,cfgfile))
 	{
-		logdbg("newline");
 		/* increment the line number counter */
 		linenum++;
 
 		/* replace newline with terminator */
-		if(ptr=strchr(linebuf,'\n'))
+		if((ptr=strchr(linebuf,'\n')))
 			*ptr='\0';
 
 		/* chop off comments */
-		if(ptr=strchr(linebuf,'#'))
+		if((ptr=strchr(linebuf,'#')))
 			*ptr='\0';
 
 		/* check for emtpy lines */
 		if(linebuf[0]=='\0')
 			continue;
 
-		/* allocate new lirckb_cmd node */
+		/* allocate new lirckbd_cmd node */
 		tmpnode = cmdnode;
-		cmdnode = (lirckb_cmd_t*)malloc(sizeof(lirckb_cmd_t*));
+		cmdnode = (lirckbd_cmd_t*)malloc(sizeof(lirckbd_cmd_t));
 		if(cmdnode==NULL)
 		{
 			logerr("out of memory");
 			/* tmpnode is the head of the part of the list that 
 			 * was successfully allocated */
-			free_lirckb_config(tmpnode);
+			free_lirckbd_config(tmpnode);
 			return NULL;
 		}
 		memset(cmdnode,0,sizeof(cmdnode));
@@ -146,7 +149,7 @@ read_lirckb_config(const char *filename)
 		if(!ptr)
 		{
 			fprintf(stderr,"no command at line %u\n",linenum);
-			free_lirckb_config(cmdnode);
+			free_lirckbd_config(cmdnode);
 			return NULL;
 		}
 
@@ -159,7 +162,7 @@ read_lirckb_config(const char *filename)
 		if(*ptr!='=')
 		{
 			fprintf(stderr,"no '=' found at line %u\n",linenum);
-			free_lirckb_config(cmdnode);
+			free_lirckbd_config(cmdnode);
 			return NULL;
 		}
 
@@ -169,7 +172,7 @@ read_lirckb_config(const char *filename)
 			if((cmdnode->kbcodes[i] = get_keycode(ptr))==-1)
 			{
 				fprintf(stderr,"unknown key '%s' at line %u\n",ptr,linenum);
-				free_lirckb_config(cmdnode);
+				free_lirckbd_config(cmdnode);
 				return NULL;
 			}
 		}
@@ -178,7 +181,7 @@ read_lirckb_config(const char *filename)
 		if(i==0)
 		{
 			fprintf(stderr,"command has no keystrokes at line %u\n",linenum);
-			free_lirckb_config(cmdnode);
+			free_lirckbd_config(cmdnode);
 			return NULL;
 		}
 		cmdnode->numkbcodes = i;
@@ -188,13 +191,15 @@ read_lirckb_config(const char *filename)
 }
 
 void 
-free_lirckb_config(lirckb_cmd_t *cmdlist)
+free_lirckbd_config(lirckbd_cmd_t *cmdlist)
 {
-	lirckb_cmd_t *cmd, *nextcmd;
+	lirckbd_cmd_t *cmd, *nextcmd;
 	cmd = cmdlist;
 	while(cmd)
 	{
 		nextcmd = cmd->next;
+		if(cmd->command) 
+			free(cmd->command);
 		free(cmd);
 		cmd = nextcmd;
 	}
@@ -206,8 +211,8 @@ get_keycode(const char *keyname)
 	int i;
 	
 	for(i=0; i<LIRCKB_KEYMAP_SIZE; i++)
-		if(strncmp(keyname,lirckb_keymap[i].keyname,LIRCKB_KEYNAME_SIZE)==0)
-			return lirckb_keymap[i].keycode;
+		if(strncmp(keyname,lirckbd_keymap[i].keyname,LIRCKB_KEYNAME_SIZE)==0)
+			return lirckbd_keymap[i].keycode;
 	
 	return -1;
 }

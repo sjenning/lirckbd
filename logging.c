@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include "logging.h"
+#include "lirckbd.h"
 
 void 
 logdbg(const char *str)
 {
-#ifdef DEBUG
-	fprintf(stderr,"DEBUG: %s\n",str);
-#endif
+	if(debug)
+		fprintf(stderr,"DEBUG: %s\n",str);
 }
 
 void

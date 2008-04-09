@@ -13,14 +13,14 @@ typedef struct keymap
 } keymap_t;
 
 #define LIRCKB_KEYMAP_SIZE 80
-extern keymap_t lirckb_keymap[LIRCKB_KEYMAP_SIZE];
+extern keymap_t lirckbd_keymap[LIRCKB_KEYMAP_SIZE];
 
 extern
-lirckb_cmd_t* 
-read_lirckb_config(const char *filename);
+lirckbd_cmd_t* 
+read_lirckbd_config(const char *filename);
 
 extern
 void
-free_lirckb_config(lirckb_cmd_t *cmdlist);
+free_lirckbd_config(lirckbd_cmd_t *cmdlist);
 
 #endif /* _PARSE_H_ */

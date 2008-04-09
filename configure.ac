@@ -3,8 +3,8 @@
 
 AC_PREREQ(2.61)
 AC_INIT(FULL-PACKAGE-NAME, VERSION, BUG-REPORT-ADDRESS)
-AM_INIT_AUTOMAKE(lirckb, 0.1)
-AC_CONFIG_SRCDIR([lirckb.c])
+AM_INIT_AUTOMAKE(lirckbd, 0.1)
+AC_CONFIG_SRCDIR([lirckbd.c])
 #AC_CONFIG_HEADER([config.h])
 AM_CONFIG_HEADER([config.h])
 
@@ -29,4 +29,4 @@ AC_TYPE_SIGNAL
 AC_CHECK_FUNCS([gettimeofday memset strchr strdup])
 
 AC_CONFIG_FILES([Makefile])
-AC_OUTPUT
+AC_OUTPUT([man/Makefile])

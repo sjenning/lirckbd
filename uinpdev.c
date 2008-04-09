@@ -7,16 +7,17 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <unistd.h>
 
 #include "logging.h"
-#include "lirckb.h"
+#include "lirckbd.h"
 #include "uinpdev.h"
 
 int
-uinpdev_init(lirckb_cmd_t *cmdlist)
+uinpdev_init(lirckbd_cmd_t *cmdlist)
 {
 	struct uinput_user_dev uinp;
-	lirckb_cmd_t *mycmd = cmdlist;
+	lirckbd_cmd_t *mycmd = cmdlist;
 	int i, uinpdev;
 	
 	/* open the uinput device provided by the uinput kernel ext */
@@ -38,7 +39,7 @@ uinpdev_init(lirckb_cmd_t *cmdlist)
 	/* define a keyboard device */
 	ioctl(uinpdev, UI_SET_EVBIT, EV_KEY);
 
-	/* for each key used in the lirckb configuration, enable
+	/* for each key used in the lirckbd configuration, enable
 	 * that key on our uinput device */
 	while(mycmd)
 	{
@@ -63,15 +64,13 @@ uinpdev_init(lirckb_cmd_t *cmdlist)
 }
 
 void
-uinpdev_handle_cmd(int uinpdev, lirckb_cmd_t *cmd)
+uinpdev_handle_cmd(int uinpdev, lirckbd_cmd_t *cmd)
 {
 	struct input_event event;
 	int i;
 	
-#ifdef DEBUG
-	fprintf(stderr,"DEBUG: %s command received\n",cmd->command);
-#endif
-	
+	if(debug)
+		fprintf(stderr,"DEBUG: %s command received\n",cmd->command);
 	
 	/* "press button" */
 	memset(&event,0,sizeof(event));
