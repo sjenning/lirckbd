@@ -3302,6 +3302,7 @@ else
 fi
 
 
+#AM_PROG_CC_C_O
 
 # Checks for libraries.
 
@@ -5267,9 +5268,7 @@ fi
 done
 
 
-ac_config_files="$ac_config_files Makefile"
-
-ac_config_files="$ac_config_files man/Makefile"
+ac_config_files="$ac_config_files Makefile man/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure

@@ -93,8 +93,8 @@ main(int argc, char *argv[])
 	}
 	
 	/* fork the child process (the daemon) and exit the parent */
-	if(fork())
-		exit(EXIT_SUCCESS);
+	//if(fork())
+	//	exit(EXIT_SUCCESS);
 
 	/* register SIGTERM handler */
 	signal(SIGTERM, lirckbd_cleanup);

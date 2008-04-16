@@ -48,13 +48,10 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(sbindir)"
 sbinPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(sbin_PROGRAMS)
-am_lirckbd_OBJECTS = lirckbd-lirckbd.$(OBJEXT) \
-	lirckbd-logging.$(OBJEXT) lirckbd-parse.$(OBJEXT) \
-	lirckbd-uinpdev.$(OBJEXT)
+am_lirckbd_OBJECTS = lirckbd.$(OBJEXT) logging.$(OBJEXT) \
+	parse.$(OBJEXT) uinpdev.$(OBJEXT)
 lirckbd_OBJECTS = $(am_lirckbd_OBJECTS)
 lirckbd_LDADD = $(LDADD)
-lirckbd_LINK = $(CCLD) $(lirckbd_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
-	$(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -172,7 +169,7 @@ target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 lirckbd_SOURCES = lirckbd.c logging.c parse.c uinpdev.c
-lirckbd_CFLAGS = -Wall
+AM_CFLAGS = -Wall
 SUBDIRS = man
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
@@ -254,7 +251,7 @@ clean-sbinPROGRAMS:
 	-test -z "$(sbin_PROGRAMS)" || rm -f $(sbin_PROGRAMS)
 lirckbd$(EXEEXT): $(lirckbd_OBJECTS) $(lirckbd_DEPENDENCIES) 
 	@rm -f lirckbd$(EXEEXT)
-	$(lirckbd_LINK) $(lirckbd_OBJECTS) $(lirckbd_LDADD) $(LIBS)
+	$(LINK) $(lirckbd_OBJECTS) $(lirckbd_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -262,10 +259,10 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lirckbd-lirckbd.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lirckbd-logging.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lirckbd-parse.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lirckbd-uinpdev.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lirckbd.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/logging.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/parse.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uinpdev.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -280,62 +277,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(COMPILE) -c `$(CYGPATH_W) '$<'`
-
-lirckbd-lirckbd.o: lirckbd.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lirckbd_CFLAGS) $(CFLAGS) -MT lirckbd-lirckbd.o -MD -MP -MF $(DEPDIR)/lirckbd-lirckbd.Tpo -c -o lirckbd-lirckbd.o `test -f 'lirckbd.c' || echo '$(srcdir)/'`lirckbd.c
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/lirckbd-lirckbd.Tpo $(DEPDIR)/lirckbd-lirckbd.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='lirckbd.c' object='lirckbd-lirckbd.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lirckbd_CFLAGS) $(CFLAGS) -c -o lirckbd-lirckbd.o `test -f 'lirckbd.c' || echo '$(srcdir)/'`lirckbd.c
-
-lirckbd-lirckbd.obj: lirckbd.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lirckbd_CFLAGS) $(CFLAGS) -MT lirckbd-lirckbd.obj -MD -MP -MF $(DEPDIR)/lirckbd-lirckbd.Tpo -c -o lirckbd-lirckbd.obj `if test -f 'lirckbd.c'; then $(CYGPATH_W) 'lirckbd.c'; else $(CYGPATH_W) '$(srcdir)/lirckbd.c'; fi`
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/lirckbd-lirckbd.Tpo $(DEPDIR)/lirckbd-lirckbd.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='lirckbd.c' object='lirckbd-lirckbd.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lirckbd_CFLAGS) $(CFLAGS) -c -o lirckbd-lirckbd.obj `if test -f 'lirckbd.c'; then $(CYGPATH_W) 'lirckbd.c'; else $(CYGPATH_W) '$(srcdir)/lirckbd.c'; fi`
-
-lirckbd-logging.o: logging.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lirckbd_CFLAGS) $(CFLAGS) -MT lirckbd-logging.o -MD -MP -MF $(DEPDIR)/lirckbd-logging.Tpo -c -o lirckbd-logging.o `test -f 'logging.c' || echo '$(srcdir)/'`logging.c
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/lirckbd-logging.Tpo $(DEPDIR)/lirckbd-logging.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='logging.c' object='lirckbd-logging.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lirckbd_CFLAGS) $(CFLAGS) -c -o lirckbd-logging.o `test -f 'logging.c' || echo '$(srcdir)/'`logging.c
-
-lirckbd-logging.obj: logging.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lirckbd_CFLAGS) $(CFLAGS) -MT lirckbd-logging.obj -MD -MP -MF $(DEPDIR)/lirckbd-logging.Tpo -c -o lirckbd-logging.obj `if test -f 'logging.c'; then $(CYGPATH_W) 'logging.c'; else $(CYGPATH_W) '$(srcdir)/logging.c'; fi`
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/lirckbd-logging.Tpo $(DEPDIR)/lirckbd-logging.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='logging.c' object='lirckbd-logging.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lirckbd_CFLAGS) $(CFLAGS) -c -o lirckbd-logging.obj `if test -f 'logging.c'; then $(CYGPATH_W) 'logging.c'; else $(CYGPATH_W) '$(srcdir)/logging.c'; fi`
-
-lirckbd-parse.o: parse.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lirckbd_CFLAGS) $(CFLAGS) -MT lirckbd-parse.o -MD -MP -MF $(DEPDIR)/lirckbd-parse.Tpo -c -o lirckbd-parse.o `test -f 'parse.c' || echo '$(srcdir)/'`parse.c
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/lirckbd-parse.Tpo $(DEPDIR)/lirckbd-parse.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='parse.c' object='lirckbd-parse.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lirckbd_CFLAGS) $(CFLAGS) -c -o lirckbd-parse.o `test -f 'parse.c' || echo '$(srcdir)/'`parse.c
-
-lirckbd-parse.obj: parse.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lirckbd_CFLAGS) $(CFLAGS) -MT lirckbd-parse.obj -MD -MP -MF $(DEPDIR)/lirckbd-parse.Tpo -c -o lirckbd-parse.obj `if test -f 'parse.c'; then $(CYGPATH_W) 'parse.c'; else $(CYGPATH_W) '$(srcdir)/parse.c'; fi`
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/lirckbd-parse.Tpo $(DEPDIR)/lirckbd-parse.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='parse.c' object='lirckbd-parse.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lirckbd_CFLAGS) $(CFLAGS) -c -o lirckbd-parse.obj `if test -f 'parse.c'; then $(CYGPATH_W) 'parse.c'; else $(CYGPATH_W) '$(srcdir)/parse.c'; fi`
-
-lirckbd-uinpdev.o: uinpdev.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lirckbd_CFLAGS) $(CFLAGS) -MT lirckbd-uinpdev.o -MD -MP -MF $(DEPDIR)/lirckbd-uinpdev.Tpo -c -o lirckbd-uinpdev.o `test -f 'uinpdev.c' || echo '$(srcdir)/'`uinpdev.c
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/lirckbd-uinpdev.Tpo $(DEPDIR)/lirckbd-uinpdev.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='uinpdev.c' object='lirckbd-uinpdev.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lirckbd_CFLAGS) $(CFLAGS) -c -o lirckbd-uinpdev.o `test -f 'uinpdev.c' || echo '$(srcdir)/'`uinpdev.c
-
-lirckbd-uinpdev.obj: uinpdev.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lirckbd_CFLAGS) $(CFLAGS) -MT lirckbd-uinpdev.obj -MD -MP -MF $(DEPDIR)/lirckbd-uinpdev.Tpo -c -o lirckbd-uinpdev.obj `if test -f 'uinpdev.c'; then $(CYGPATH_W) 'uinpdev.c'; else $(CYGPATH_W) '$(srcdir)/uinpdev.c'; fi`
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/lirckbd-uinpdev.Tpo $(DEPDIR)/lirckbd-uinpdev.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='uinpdev.c' object='lirckbd-uinpdev.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lirckbd_CFLAGS) $(CFLAGS) -c -o lirckbd-uinpdev.obj `if test -f 'uinpdev.c'; then $(CYGPATH_W) 'uinpdev.c'; else $(CYGPATH_W) '$(srcdir)/uinpdev.c'; fi`
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run `make' without going through this Makefile.

@@ -10,6 +10,7 @@ AM_CONFIG_HEADER([config.h])
 
 # Checks for programs.
 AC_PROG_CC
+#AM_PROG_CC_C_O
 
 # Checks for libraries.
 AC_CHECK_LIB([lirc_client], [lirc_init])
@@ -28,5 +29,4 @@ AC_FUNC_MALLOC
 AC_TYPE_SIGNAL
 AC_CHECK_FUNCS([gettimeofday memset strchr strdup])
 
-AC_CONFIG_FILES([Makefile])
-AC_OUTPUT([man/Makefile])
+AC_OUTPUT([Makefile man/Makefile])
