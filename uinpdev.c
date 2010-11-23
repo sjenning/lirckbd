@@ -21,7 +21,7 @@ uinpdev_init(lirckbd_cmd_t *cmdlist)
 	int i, uinpdev;
 	
 	/* open the uinput device provided by the uinput kernel ext */
-	uinpdev = open("/dev/uinput", O_WRONLY | O_NDELAY);
+	uinpdev = open("/dev/input/uinput", O_WRONLY | O_NDELAY);
 	if(uinpdev==-1)
 	{
 		logerr("couldn't open uinput device");
